@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 import smtplib
 import time
 import os
+import EmailInfo
 
 
 def check_BB_available(url,headers):
@@ -72,21 +73,21 @@ def check_Micro(url,headers):
 #        send_mail(url)
          
 def send_mail(url):
-    os.system('afplay /Users/thomasmataconis/Desktop/air_raid.wav&')
+    os.system('afplay air_raid.wav&')
     server = smtplib.SMTP('smtp.gmail.com',587)
     server.ehlo()
     server.starttls()
     server.ehlo()
     
-    server.login('thmsmtcns@gmail.com','Tomaeux1')
+    server.login(EmailInfo.username,EmailInfo.password)
     subject = 'Xbox X Available!'
     body = 'Check the link!! \n' + url
     
-    msg = f"Subject: {subject} \n\n{body}"
+    msg = "Subject: {subject} \n\n{body}"
     
     server.sendmail(
-            'thmsmtcns@gmail.com', 
-            'thmsmtcns@gmail.com',
+            EmailInfo.username, 
+            EmailInfo.username,
             msg
             )
     print('EMAIL SENT')
@@ -103,7 +104,7 @@ def main():
     #gameStopURL = 'https://www.gamestop.com/video-games/xbox-series-x/consoles/products/xbox-series-x/B224744V.html?utm_source=rakutenls&utm_medium=affiliate&utm_content=Future+Publishing+Ltd&utm_campaign=10&utm_kxconfid=tebx5rmj3&cid=afl_10000087&affID=77777&sourceID=kXQk6.ivFEQ-Kki285_qAaxPN8QFmPE8tg'
     #microsoftURL = 'https://www.microsoft.com/en-us/p/xbox-series-x/8WJ714N3RBTL/P1LV?ranMID=24542&ranEAID=kXQk6*ivFEQ&ranSiteID=kXQk6.ivFEQ-QC33yXYYNOhxb.5URTFGOg&epi=kXQk6.ivFEQ-QC33yXYYNOhxb.5URTFGOg&irgwc=1&OCID=AID2000142_aff_7593_1243925&tduid=%28ir__gjiaq3sa9okfqgdykk0sohzn332xsbelvtzmvu1y00%29%287593%29%281243925%29%28kXQk6.ivFEQ-QC33yXYYNOhxb.5URTFGOg%29%28%29&irclickid=_gjiaq3sa9okfqgdykk0sohzn332xsbelvtzmvu1y00'
     #amazonURL = 'https://www.amazon.com/dp/B08H75RTZ8/?coliid=I1EAWQQ5BMP08I&colid=1OY7Q3QURQPHD&psc=1&ref_=lv_ov_lig_dp_it&th=1'
-    headers = {"User-Agent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'}
+    headers = EmailInfo.headers
     
     counter = 0
     while(True):
@@ -128,7 +129,7 @@ def main():
             ampm = "AM"
             
         print(hour%12,":",minute,".",sec,ampm)
-           
+        
 #        if hour == 23:
 #           print("sleeping for", ((60 - minute)*60 + 15 - sec), "seconds\n")
 #           time.sleep((60 - minute)*60 + 15 - sec)
@@ -140,11 +141,7 @@ def main():
 #        else :
 #            time.sleep(60*30)
         time.sleep(15)
-                
-        
-            
-        
-        
+                                
 main()
 
 
